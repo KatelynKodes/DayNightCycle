@@ -11,8 +11,12 @@ public class TimeControllerBehavior : MonoBehaviour
     private float _currMinute = 0;
     private float _debugMinChecker;
 
+    private bool _hourChanged = false;
+
     public float getCurrHour { get { return _currHour; } }
     public float getCurrMinute { get { return _currMinute; } }
+    public bool HourChanged { get { return _hourChanged; } private set { _hourChanged = value; } }
+
 
     private void Update()
     {
@@ -21,26 +25,26 @@ public class TimeControllerBehavior : MonoBehaviour
 
         if (_currMinute == _minutesInHour)
         {
-            _prevHour = _currHour;
-            _currHour++;
+            HourChanged = true;
+            ChangeHour();
             _currMinute = 0.0f;
             _debugMinChecker = 0.0f;
         }
-
-        if (_currHour == _hoursInDay)
-        {
-            _currHour = 0.0f;
-        }
     }
 
-    public bool HourIncreased()
+    private void ChangeHour()
     {
-        if (_currHour > _prevHour)
-            return true;
-        else if (_currHour != _prevHour)
-            return true;
-        else
-            return false;
+        if (HourChanged)
+        {
+            _prevHour = _currHour;
+
+            if (_currHour == _hoursInDay)
+                _currHour = 0.0f;
+            else
+                _currHour++;
+
+            HourChanged = false;
+        }
     }
 
 }

@@ -21,12 +21,12 @@ public class GameManager : MonoBehaviour
 
         if (_timeController.getCurrHour < 12)
         {
-            if (_timeController.HourIncreased())
+            if (_timeController.HourChanged)
                 _timePassed += 0.1f;
         }
         else if (_timeController.getCurrHour > 12)
         {
-            if (_timeController.HourIncreased())
+            if (_timeController.HourChanged)
                 _timePassed -= 0.1f;
         }
 
