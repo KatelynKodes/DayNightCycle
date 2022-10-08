@@ -15,7 +15,7 @@ public class TimeControllerBehavior : MonoBehaviour
 
     public float getCurrHour { get { return _currHour; } }
     public float getCurrMinute { get { return _currMinute; } }
-    public bool HourChanged { get { return _hourChanged; } private set { _hourChanged = value; } }
+    public bool HourChanged { get { return _hourChanged; } set { _hourChanged = value; } }
 
 
     private void Update()
@@ -42,8 +42,6 @@ public class TimeControllerBehavior : MonoBehaviour
                 _currHour = 0.0f;
             else
                 _currHour++;
-
-            HourChanged = false;
         }
     }
 

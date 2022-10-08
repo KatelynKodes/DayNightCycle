@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Camera _camera;
     [SerializeField]
+    private Gradient _DayNightGradient;
+    [SerializeField]
     private Color _nightColor;
     [SerializeField]
     private Color _dayColor;
@@ -17,17 +19,24 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        _camera.backgroundColor = Color.Lerp(_nightColor, _dayColor, Mathf.Lerp(0.0f, 1.0f, _timePassed));
+        float currGradientColor = Mathf.Lerp(0.0f, 1.0f, _timePassed);
+        _camera.backgroundColor = _DayNightGradient.Evaluate(currGradientColor);
 
         if (_timeController.getCurrHour < 12)
         {
             if (_timeController.HourChanged)
-                _timePassed += 0.1f;
+            { 
+                _timePassed += 0.05f;
+                _timeController.HourChanged = false;
+            }
         }
         else if (_timeController.getCurrHour > 12)
         {
             if (_timeController.HourChanged)
-                _timePassed -= 0.1f;
+            { 
+                _timePassed -= 0.05f;
+                _timeController.HourChanged = false;
+            }
         }
 
     }
